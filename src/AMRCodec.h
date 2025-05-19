@@ -42,8 +42,13 @@ public:
      * @brief Get the number of samples per frame.
      * @return NB: 160 samples/frame, WB: 320 samples/frame
      */
-
     virtual int getFrameSizeSamples() = 0;
+    
+    /**
+     * @brief Get the size in bytes of one encoded frame
+     * @return Number of bytes for one encoded frame in current mode
+     */
+    virtual int getEncodedFrameSizeBytes() = 0;
 
 protected:
     bool isInitialized = false;

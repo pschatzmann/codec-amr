@@ -213,27 +213,44 @@ $(function() {
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">return</span> 16000; </div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    </div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classAMRWB.html#a603aa02ee02b5259cf56e244f867a998">  190</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classAMRWB.html#a603aa02ee02b5259cf56e244f867a998">getFrameSizeSamples</a>()<span class="keyword"> const </span>{ </div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classAMRWB.html#ac7551058792c873753308db0ba91fcaf">  190</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classAMRWB.html#ac7551058792c873753308db0ba91fcaf">getFrameSizeSamples</a>()<span class="keyword"> override </span>{ </div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">return</span> 320; </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">void</span>* encoderState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordtype">void</span>* decoderState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="classAMRWB.html#a2b7be8f703aac29d14933b4fdf703881">Mode</a> currentMode = Mode::MODE_23_85;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;};</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="classAMRWB.html#a1f256e8dd059d0f33deca5caee987042">  198</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classAMRWB.html#a1f256e8dd059d0f33deca5caee987042">getEncodedFrameSizeBytes</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="comment">// Bytes per encoded frame for each mode</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">const</span> uint8_t frameSizes[] = {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            18,  <span class="comment">// MODE_6_60 (6.60 kbps)</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            24,  <span class="comment">// MODE_8_85 (8.85 kbps)</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            33,  <span class="comment">// MODE_12_65 (12.65 kbps)</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            37,  <span class="comment">// MODE_14_25 (14.25 kbps)</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            41,  <span class="comment">// MODE_15_85 (15.85 kbps)</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            47,  <span class="comment">// MODE_18_25 (18.25 kbps)</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            51,  <span class="comment">// MODE_19_85 (19.85 kbps)</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            59,  <span class="comment">// MODE_23_05 (23.05 kbps)</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            61   <span class="comment">// MODE_23_85 (23.85 kbps)</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        };</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">return</span> frameSizes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(currentMode)];</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordtype">void</span>* encoderState = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">void</span>* decoderState = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <a class="code" href="classAMRWB.html#a2b7be8f703aac29d14933b4fdf703881">Mode</a> currentMode = Mode::MODE_23_85;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;};</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
 <div class="ttc" id="aclassAMRCodec_html"><div class="ttname"><a href="classAMRCodec.html">AMRCodec</a></div><div class="ttdoc">Base class for AMR codec implementations.</div><div class="ttdef"><b>Definition:</b> AMRCodec.h:9</div></div>
 <div class="ttc" id="aclassAMRWB_html"><div class="ttname"><a href="classAMRWB.html">AMRWB</a></div><div class="ttdoc">AMR Wideband codec implementation.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:13</div></div>
 <div class="ttc" id="aclassAMRWB_html_a12039ba761dc157b6ba92589f074f952"><div class="ttname"><a href="classAMRWB.html#a12039ba761dc157b6ba92589f074f952">AMRWB::decode</a></div><div class="ttdeci">int decode(const uint8_t *amrData, size_t amrSize, int16_t *pcmSamples, size_t maxSampleCount) override</div><div class="ttdoc">Decode AMR-WB data to PCM samples.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:127</div></div>
+<div class="ttc" id="aclassAMRWB_html_a1f256e8dd059d0f33deca5caee987042"><div class="ttname"><a href="classAMRWB.html#a1f256e8dd059d0f33deca5caee987042">AMRWB::getEncodedFrameSizeBytes</a></div><div class="ttdeci">int getEncodedFrameSizeBytes() override</div><div class="ttdoc">Get the size in bytes for one encoded frame in current mode.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:198</div></div>
 <div class="ttc" id="aclassAMRWB_html_a2b7be8f703aac29d14933b4fdf703881"><div class="ttname"><a href="classAMRWB.html#a2b7be8f703aac29d14933b4fdf703881">AMRWB::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdoc">Available encoding modes for AMR-WB.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:18</div></div>
 <div class="ttc" id="aclassAMRWB_html_a4d40c1a9c3c1a2e9d056187f2114998c"><div class="ttname"><a href="classAMRWB.html#a4d40c1a9c3c1a2e9d056187f2114998c">AMRWB::getSampleRate</a></div><div class="ttdeci">int getSampleRate() const override</div><div class="ttdoc">Get sample rate (16000 Hz for AMR-WB)</div><div class="ttdef"><b>Definition:</b> AMRWB.h:182</div></div>
-<div class="ttc" id="aclassAMRWB_html_a603aa02ee02b5259cf56e244f867a998"><div class="ttname"><a href="classAMRWB.html#a603aa02ee02b5259cf56e244f867a998">AMRWB::getFrameSizeSamples</a></div><div class="ttdeci">int getFrameSizeSamples() const</div><div class="ttdoc">Get frame size in samples (320 for AMR-WB)</div><div class="ttdef"><b>Definition:</b> AMRWB.h:190</div></div>
 <div class="ttc" id="aclassAMRWB_html_a6ddaccf9968e6d47646bfdb23469c107"><div class="ttname"><a href="classAMRWB.html#a6ddaccf9968e6d47646bfdb23469c107">AMRWB::setMode</a></div><div class="ttdeci">void setMode(Mode mode)</div><div class="ttdoc">Set encoding mode.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:63</div></div>
 <div class="ttc" id="aclassAMRWB_html_a94c58ca34121496c16ddc277f868c64e"><div class="ttname"><a href="classAMRWB.html#a94c58ca34121496c16ddc277f868c64e">AMRWB::~AMRWB</a></div><div class="ttdeci">~AMRWB() override</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:47</div></div>
 <div class="ttc" id="aclassAMRWB_html_aa5180caf58e54652ccfa7d1045f07d79"><div class="ttname"><a href="classAMRWB.html#aa5180caf58e54652ccfa7d1045f07d79">AMRWB::AMRWB</a></div><div class="ttdeci">AMRWB(bool enableDTX=false)</div><div class="ttdoc">Construct a new AMRWB codec.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:34</div></div>
 <div class="ttc" id="aclassAMRWB_html_abd91b618929b944de214ba5a88b4d063"><div class="ttname"><a href="classAMRWB.html#abd91b618929b944de214ba5a88b4d063">AMRWB::getMode</a></div><div class="ttdeci">Mode getMode() const</div><div class="ttdoc">Get current encoding mode.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:71</div></div>
 <div class="ttc" id="aclassAMRWB_html_ac2aaec357a41b267900dc59ed9f15259"><div class="ttname"><a href="classAMRWB.html#ac2aaec357a41b267900dc59ed9f15259">AMRWB::encode</a></div><div class="ttdeci">int encode(const int16_t *pcmSamples, size_t sampleCount, uint8_t *amrData, size_t amrBufferSize) override</div><div class="ttdoc">Encode PCM samples to AMR-WB format.</div><div class="ttdef"><b>Definition:</b> AMRWB.h:83</div></div>
+<div class="ttc" id="aclassAMRWB_html_ac7551058792c873753308db0ba91fcaf"><div class="ttname"><a href="classAMRWB.html#ac7551058792c873753308db0ba91fcaf">AMRWB::getFrameSizeSamples</a></div><div class="ttdeci">int getFrameSizeSamples() override</div><div class="ttdoc">Get frame size in samples (320 for AMR-WB)</div><div class="ttdef"><b>Definition:</b> AMRWB.h:190</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

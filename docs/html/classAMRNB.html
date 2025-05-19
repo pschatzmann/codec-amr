@@ -134,13 +134,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afee98e3cc5c89c681842ef9a10fc9f7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRNB.html#afee98e3cc5c89c681842ef9a10fc9f7d">getSampleRate</a> () const override</td></tr>
 <tr class="memdesc:afee98e3cc5c89c681842ef9a10fc9f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get sample rate (8000 Hz for AMR-NB)  <a href="classAMRNB.html#afee98e3cc5c89c681842ef9a10fc9f7d">More...</a><br /></td></tr>
 <tr class="separator:afee98e3cc5c89c681842ef9a10fc9f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6315883bd123635848e24667a3b8b53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRNB.html#aa6315883bd123635848e24667a3b8b53">getFrameSizeSamples</a> () const</td></tr>
-<tr class="memdesc:aa6315883bd123635848e24667a3b8b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get frame size in samples (160 for AMR-NB)  <a href="classAMRNB.html#aa6315883bd123635848e24667a3b8b53">More...</a><br /></td></tr>
-<tr class="separator:aa6315883bd123635848e24667a3b8b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classAMRCodec"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAMRCodec')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAMRCodec.html">AMRCodec</a></td></tr>
-<tr class="memitem:a1209ce326e63a06a9be80b50830b3e9b inherit pub_methods_classAMRCodec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRCodec.html#a1209ce326e63a06a9be80b50830b3e9b">getFrameSizeSamples</a> ()=0</td></tr>
-<tr class="memdesc:a1209ce326e63a06a9be80b50830b3e9b inherit pub_methods_classAMRCodec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of samples per frame.  <a href="classAMRCodec.html#a1209ce326e63a06a9be80b50830b3e9b">More...</a><br /></td></tr>
-<tr class="separator:a1209ce326e63a06a9be80b50830b3e9b inherit pub_methods_classAMRCodec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9586b6ea99b0e140cd722e7843383cd4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRNB.html#a9586b6ea99b0e140cd722e7843383cd4">getFrameSizeSamples</a> () override</td></tr>
+<tr class="memdesc:a9586b6ea99b0e140cd722e7843383cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get frame size in samples (160 for AMR-NB)  <a href="classAMRNB.html#a9586b6ea99b0e140cd722e7843383cd4">More...</a><br /></td></tr>
+<tr class="separator:a9586b6ea99b0e140cd722e7843383cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a576b144905cbedb11d506ec2013bd086"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRNB.html#a576b144905cbedb11d506ec2013bd086">getEncodedFrameSizeBytes</a> () override</td></tr>
+<tr class="memdesc:a576b144905cbedb11d506ec2013bd086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size in bytes for one encoded frame in current mode.  <a href="classAMRNB.html#a576b144905cbedb11d506ec2013bd086">More...</a><br /></td></tr>
+<tr class="separator:a576b144905cbedb11d506ec2013bd086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -311,8 +310,38 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isInitialized</b> = f
 
 </div>
 </div>
-<a id="aa6315883bd123635848e24667a3b8b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6315883bd123635848e24667a3b8b53">&#9670;&nbsp;</a></span>getFrameSizeSamples()</h2>
+<a id="a576b144905cbedb11d506ec2013bd086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a576b144905cbedb11d506ec2013bd086">&#9670;&nbsp;</a></span>getEncodedFrameSizeBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AMRNB::getEncodedFrameSizeBytes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the size in bytes for one encoded frame in current mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>Bytes per frame </dd></dl>
+
+<p>Implements <a class="el" href="classAMRCodec.html#ab4753eb6e3243762016c9a547415041b">AMRCodec</a>.</p>
+
+</div>
+</div>
+<a id="a9586b6ea99b0e140cd722e7843383cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9586b6ea99b0e140cd722e7843383cd4">&#9670;&nbsp;</a></span>getFrameSizeSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,18 +353,20 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isInitialized</b> = f
           <td class="memname">int AMRNB::getFrameSizeSamples </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Get frame size in samples (160 for AMR-NB) </p>
 <dl class="section return"><dt>Returns</dt><dd>Frame size in samples </dd></dl>
+
+<p>Implements <a class="el" href="classAMRCodec.html#a133ee5c3d49fafab9b8cfdd190ad2b4d">AMRCodec</a>.</p>
 
 </div>
 </div>

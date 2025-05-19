@@ -200,6 +200,25 @@ class AMRNB : public AMRCodec {
    */
   int getFrameSizeSamples() override { return 160; }
 
+  /**
+   * @brief Get the size in bytes for one encoded frame in current mode
+   * @return Bytes per frame
+   */
+   int getEncodedFrameSizeBytes() override {
+    // Bytes per encoded frame for each mode
+    const uint8_t frameSizes[] = {
+        13,  // MR475 (4.75 kbps)
+        14,  // MR515 (5.15 kbps)
+        16,  // MR59 (5.9 kbps)
+        18,  // MR67 (6.7 kbps)
+        20,  // MR74 (7.4 kbps)
+        21,  // MR795 (7.95 kbps)
+        27,  // MR102 (10.2 kbps)
+        32   // MR122 (12.2 kbps)
+    };
+    return frameSizes[static_cast<int>(currentMode)];
+  }
+
  private:
   void* encoderState = nullptr;
   void* decoderState = nullptr;

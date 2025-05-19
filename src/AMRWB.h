@@ -190,6 +190,26 @@ public:
     int getFrameSizeSamples() override { 
         return 320; 
     }
+
+    /**
+     * @brief Get the size in bytes for one encoded frame in current mode
+     * @return Bytes per frame
+     */
+    int getEncodedFrameSizeBytes() override {
+        // Bytes per encoded frame for each mode
+        const uint8_t frameSizes[] = {
+            18,  // MODE_6_60 (6.60 kbps)
+            24,  // MODE_8_85 (8.85 kbps)
+            33,  // MODE_12_65 (12.65 kbps)
+            37,  // MODE_14_25 (14.25 kbps)
+            41,  // MODE_15_85 (15.85 kbps)
+            47,  // MODE_18_25 (18.25 kbps)
+            51,  // MODE_19_85 (19.85 kbps)
+            59,  // MODE_23_05 (23.05 kbps)
+            61   // MODE_23_85 (23.85 kbps)
+        };
+        return frameSizes[static_cast<int>(currentMode)];
+    }
     
 private:
     void* encoderState = nullptr;
