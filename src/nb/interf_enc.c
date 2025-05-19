@@ -107,7 +107,7 @@ static void Int2Bin( Word16 value, Word16 no_of_bits, Word16 *bitstream )
  * Returns:
  *    void
  */
-static void Prm2Bits( enum Mode mode, Word16 prm[], Word16 bits[] )
+static void Prm2Bits( enum ModeNB mode, Word16 prm[], Word16 bits[] )
 {
    Word32 i;
 
