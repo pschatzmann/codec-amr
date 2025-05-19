@@ -46,6 +46,25 @@ AMR-WB is more complex and requires more processing power and bandwidth, but yie
 | AMR-WB | -           | 12.65 kbps  | \~20.2:1          |   
 | AMR-NB | -           |  4.75 kbps  | \~27:1            |  
 
+### Class Documention
+
+I am providing a simple C++ API:
+
+- [AMRNB](https://pschatzmann.github.io/codec-amr/html/classAMRNB.html)
+- [ARMWB](https://pschatzmann.github.io/codec-amr/html/classAMRWB.html)
+
+
+### Installation Arduino
+
+You can download the library as zip and call include Library -> zip library. Or you can git clone this project into the Arduino libraries folder e.g. with
+
+```
+cd  ~/Documents/Arduino/libraries
+git clone https://github.com/pschatzmann/codec-amr.git
+```
+
+I recommend to use git because you can easily update to the latest version just by executing the ```git pull``` command in the project folder.
+
 ### Licence
 
 This code implements both an AMR-NarrowBand (AMR-NB) and an AMR-WideBand (AMR-WB) audio encoder/decoder through external reference code from http://www.3gpp.org/. 
