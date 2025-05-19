@@ -1,4 +1,4 @@
-# 3GPP AMR Codec
+# 3GPP AMR Audio Codec
 
 The 3GPP AMR codec is a narrowband, low-bitrate speech codec specifically designed for low-latency voice communications such as Push-to-Talk (PoC) and Mission-Critical Push-to-Talk (MCPTT). It's not widely used in consumer apps, but important in specialized telecom and emergency communication systems.
 
