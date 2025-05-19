@@ -1,0 +1,5 @@
+<map id="AMRCodec" name="AMRCodec">
+<area shape="rect" id="node1" title="Base class for AMR codec implementations." alt="" coords="43,5,135,32"/>
+<area shape="rect" id="node2" href="$classAMRNB.html" title="AMR Narrowband codec implementation." alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" href="$classAMRWB.html" title="AMR Wideband codec implementation." alt="" coords="101,80,175,107"/>
+</map>

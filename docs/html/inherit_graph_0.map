@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classAMRCodec.html" title="Base class for AMR codec implementations." alt="" coords="5,31,97,57"/>
+<area shape="rect" id="node2" href="$classAMRNB.html" title="AMR Narrowband codec implementation." alt="" coords="147,5,218,32"/>
+<area shape="rect" id="node3" href="$classAMRWB.html" title="AMR Wideband codec implementation." alt="" coords="145,56,220,83"/>
+</map>
