@@ -31,15 +31,7 @@ class AMRNB : public AMRCodec {
    * @brief Construct a new AMRNB codec
    * @param enableDTX Enable discontinuous transmission (DTX)
    */
-  inline AMRNB(bool enableDTX = false) {
-    // Initialize the encoder and decoder
-    encoderState = Encoder_Interface_init(enableDTX ? 1 : 0);
-    decoderState = Decoder_Interface_init();
-
-    if (encoderState && decoderState) {
-      isInitialized = true;
-    }
-  }
+  inline AMRNB(bool enableDTX = false) { dtx_enabled = enableDTX; }
 
   /**
    * @brief Destructor
@@ -78,7 +70,12 @@ class AMRNB : public AMRCodec {
    */
   inline int encode(const int16_t* pcmSamples, size_t sampleCount,
                     uint8_t* amrData, size_t amrBufferSize) override {
-    if (!isInitialized || !amrData || amrBufferSize == 0) {
+    // Initialize the encoder
+    if (encoderState == nullptr)
+      encoderState = Encoder_Interface_init(dtx_enabled ? 1 : 0);
+
+    // Check if we can continue
+    if (encoderState == nullptr || !amrData || amrBufferSize == 0) {
       return 0;
     }
 
@@ -121,7 +118,10 @@ class AMRNB : public AMRCodec {
    */
   inline int decode(const uint8_t* amrData, size_t amrSize, int16_t* pcmSamples,
                     size_t maxSampleCount) override {
-    if (!isInitialized || !amrData || amrSize == 0 || !pcmSamples ||
+    // Initialize the encoder and decoder
+    if (decoderState == nullptr) decoderState = Decoder_Interface_init();
+    // Check if we can continue
+    if (decoderState == nullptr || !amrData || amrSize == 0 || !pcmSamples ||
         maxSampleCount == 0) {
       return 0;
     }
@@ -199,7 +199,6 @@ class AMRNB : public AMRCodec {
    * @return Frame size in samples
    */
   int getFrameSizeSamples() override { return 160; }
-
   /**
    * @brief Get the size in bytes for one encoded frame in current mode
    * @return Bytes per frame
@@ -223,6 +222,7 @@ class AMRNB : public AMRCodec {
   void* encoderState = nullptr;
   void* decoderState = nullptr;
   Mode currentMode = Mode::MR122;
+  bool dtx_enabled = false;
 
   // Map C++ enum to C API enum
   inline enum ModeNB mapMode(AMRNB::Mode mode) {
