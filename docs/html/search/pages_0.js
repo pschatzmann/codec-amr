@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['3gpp_20mra_20codec_29',['3GPP MRA Codec',['../index.html',1,'']]]
+  ['3gpp_20amr_20audio_20codec_29',['3GPP AMR Audio Codec',['../index.html',1,'']]]
 ];

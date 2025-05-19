@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>codec-amr: 3GPP MRA Codec</title>
+<title>codec-amr: 3GPP AMR Audio Codec</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,10 +62,10 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">3GPP MRA Codec </div>  </div>
+<div class="title">3GPP AMR Audio Codec </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> The 3GPP MRA codec is a narrowband, low-bitrate speech codec specifically designed for low-latency voice communications such as Push-to-Talk (PoC) and Mission-Critical Push-to-Talk (MCPTT). It's not widely used in consumer apps, but important in specialized telecom and emergency communication systems.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> The 3GPP AMR codec is a narrowband, low-bitrate speech codec specifically designed for low-latency voice communications such as Push-to-Talk (PoC) and Mission-Critical Push-to-Talk (MCPTT). It's not widely used in consumer apps, but important in specialized telecom and emergency communication systems.</p>
 <p>The main differences between AMR-NB (Adaptive Multi-Rate Narrowband) and AMR-WB (Adaptive Multi-Rate Wideband) lie in audio bandwidth, quality, sampling rate, and use cases. Here's a breakdown:</p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Bandwidth and Audio Quality</h2>
@@ -123,6 +123,19 @@ Summary</h2>
 <td class="markdownTableBodyNone">AMR-NB   </td><td class="markdownTableBodyNone">-   </td><td class="markdownTableBodyNone">4.75 kbps   </td><td class="markdownTableBodyNone">27:1   </td></tr>
 </table>
 <h2><a class="anchor" id="autotoc_md7"></a>
+Class Documention</h2>
+<p>I am providing a simple C++ API:</p>
+<ul>
+<li><a href="https://pschatzmann.github.io/codec-amr/html/classAMRNB.html">AMRNB</a></li>
+<li><a href="https://pschatzmann.github.io/codec-amr/html/classAMRWB.html">ARMWB</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Installation Arduino</h2>
+<p>You can download the library as zip and call include Library -&gt; zip library. Or you can git clone this project into the Arduino libraries folder e.g. with</p>
+<div class="fragment"><div class="line">cd  ~/Documents/Arduino/libraries</div>
+<div class="line">git clone https://github.com/pschatzmann/codec-amr.git</div>
+</div><!-- fragment --><p>I recommend to use git because you can easily update to the latest version just by executing the <code>git pull</code> command in the project folder.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Licence</h2>
 <p>This code implements both an AMR-NarrowBand (AMR-NB) and an AMR-WideBand (AMR-WB) audio encoder/decoder through external reference code from <a href="http://www.3gpp.org/">http://www.3gpp.org/</a>.</p>
 <p>The license of the code from 3gpp is unclear! </p>

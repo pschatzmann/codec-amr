@@ -86,11 +86,14 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classAMRCodec.html#ae5fa31f120bde2f282566bf83c383c3e">   39</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classAMRCodec.html#ae5fa31f120bde2f282566bf83c383c3e">getSampleRate</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> isInitialized = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classAMRCodec.html#a1209ce326e63a06a9be80b50830b3e9b">   46</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classAMRCodec.html#a1209ce326e63a06a9be80b50830b3e9b">getFrameSizeSamples</a>() = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> isInitialized = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="ttc" id="aclassAMRCodec_html"><div class="ttname"><a href="classAMRCodec.html">AMRCodec</a></div><div class="ttdoc">Base class for AMR codec implementations.</div><div class="ttdef"><b>Definition:</b> AMRCodec.h:9</div></div>
+<div class="ttc" id="aclassAMRCodec_html_a1209ce326e63a06a9be80b50830b3e9b"><div class="ttname"><a href="classAMRCodec.html#a1209ce326e63a06a9be80b50830b3e9b">AMRCodec::getFrameSizeSamples</a></div><div class="ttdeci">int getFrameSizeSamples()=0</div><div class="ttdoc">Get the number of samples per frame.</div></div>
 <div class="ttc" id="aclassAMRCodec_html_a8ead1f7bce599ee5f1824579c81e0d7f"><div class="ttname"><a href="classAMRCodec.html#a8ead1f7bce599ee5f1824579c81e0d7f">AMRCodec::decode</a></div><div class="ttdeci">virtual int decode(const uint8_t *amrData, size_t amrSize, int16_t *pcmSamples, size_t maxSampleCount)=0</div><div class="ttdoc">Decodes AMR format to PCM audio samples.</div></div>
 <div class="ttc" id="aclassAMRCodec_html_ae31d2938db3d8ac2b515fc1d49c3f0ef"><div class="ttname"><a href="classAMRCodec.html#ae31d2938db3d8ac2b515fc1d49c3f0ef">AMRCodec::encode</a></div><div class="ttdeci">virtual int encode(const int16_t *pcmSamples, size_t sampleCount, uint8_t *amrData, size_t amrBufferSize)=0</div><div class="ttdoc">Encodes PCM audio samples to AMR format.</div></div>
 <div class="ttc" id="aclassAMRCodec_html_ae5fa31f120bde2f282566bf83c383c3e"><div class="ttname"><a href="classAMRCodec.html#ae5fa31f120bde2f282566bf83c383c3e">AMRCodec::getSampleRate</a></div><div class="ttdeci">virtual int getSampleRate() const =0</div><div class="ttdoc">Get sample rate used by the codec.</div></div>

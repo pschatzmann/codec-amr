@@ -38,6 +38,13 @@ public:
      */
     virtual int getSampleRate() const = 0;
     
+    /**
+     * @brief Get the number of samples per frame.
+     * @return NB: 160 samples/frame, WB: 320 samples/frame
+     */
+
+    inline int getFrameSizeSamples() = 0;
+
 protected:
     bool isInitialized = false;
 };
