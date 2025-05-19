@@ -198,7 +198,7 @@ class AMRNB : public AMRCodec {
    * @brief Get frame size in samples (160 for AMR-NB)
    * @return Frame size in samples
    */
-  inline int getFrameSizeSamples() const { return 160; }
+  int getFrameSizeSamples() override { return 160; }
 
  private:
   void* encoderState = nullptr;

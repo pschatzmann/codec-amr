@@ -187,7 +187,7 @@ public:
      * @brief Get frame size in samples (320 for AMR-WB)
      * @return Frame size in samples
      */
-    inline int getFrameSizeSamples() const { 
+    int getFrameSizeSamples() override { 
         return 320; 
     }
     

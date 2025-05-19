@@ -43,7 +43,7 @@ public:
      * @return NB: 160 samples/frame, WB: 320 samples/frame
      */
 
-    inline int getFrameSizeSamples() = 0;
+    virtual int getFrameSizeSamples() = 0;
 
 protected:
     bool isInitialized = false;
