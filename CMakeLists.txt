@@ -13,7 +13,7 @@ target_include_directories(codec-amr PUBLIC
     ${PROJECT_SOURCE_DIR}/src/wb
 )
 ## we use default IF1: set alternatives formats with -DETSI or -DIF2
-target_compile_options(codec-amr PUBLIC "-Wstack-usage=4096" )
+target_compile_options(codec-amr PUBLIC "-Wstack-usage=2800" )
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src/main")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/examples/AMRCodecExample")

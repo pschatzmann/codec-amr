@@ -20,6 +20,7 @@
  *    16-bit speech samples to AMR encoder parameters.
  *
  */
+#include "../amr_config.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
@@ -4652,6 +4653,14 @@ static void build_code_2i40_9bits( Word16 subNr, Word32 codvec[], Float32
    anap[1] = ( Word16 )rsign;
 }
 
+#if AMR_STACK_HACK
+struct {
+   Float32 rr_hack[L_CODE][L_CODE];
+   Float32 dn[L_CODE], dn_sign[L_CODE], dn2[L_CODE];
+   Word32 ipos[10], pos_max[NB_TRACK], codvec[10];
+} AmrStackContext;
+
+#endif
 
 /*
  * code_2i40_9bits
@@ -4683,8 +4692,15 @@ static void build_code_2i40_9bits( Word16 subNr, Word32 codvec[], Float32
 static void code_2i40_9bits( Word16 subNr, Float32 x[], Float32 h[], Word32 T0,
       Float32 pitch_sharp, Float32 code[], Float32 y[], Word16 *anap )
 {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* dn_sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
    Float32 rr[L_CODE][L_CODE];
    Float32 dn[L_CODE], dn_sign[L_CODE], dn2[L_CODE];
+#endif
    Word32 codvec[2];
    Word32 i;
 
@@ -4921,8 +4937,15 @@ static void build_code_2i40_11bits( Word32 codvec[], Float32 dn_sign[], Float32
 static void code_2i40_11bits( Float32 x[], Float32 h[], Word32 T0, Float32
       pitch_sharp, Float32 code[], Float32 y[], Word16 *anap )
 {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* dn_sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
    Float32 rr[L_CODE][L_CODE];
    Float32 dn[L_CODE], dn2[L_CODE], dn_sign[L_CODE];
+#endif
    Word32 codvec[2];
    Word32 i;
 
@@ -5196,8 +5219,15 @@ static void build_code_3i40_14bits( Word32 codvec[], Float32 dn_sign[], Float32
 static void code_3i40_14bits( Float32 x[], Float32 h[], Word32 T0, Float32
       pitch_sharp, Float32 code[], Float32 y[], Word16 *anap )
 {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* dn_sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
    Float32 rr[L_CODE][L_CODE];
    Float32 dn[L_CODE], dn2[L_CODE], dn_sign[L_CODE];
+#endif
    Word32 codvec[3];
    Word32 i;
 
@@ -5504,8 +5534,15 @@ static void build_code_4i40( Word32 codvec[], Float32 dn_sign[], Float32 cod[],
 static void code_4i40_17bits( Float32 x[], Float32 h[], Word32 T0, Float32
       pitch_sharp, Float32 code[], Float32 y[], Word16 *anap )
 {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* dn_sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
    Float32 rr[L_CODE][L_CODE];
    Float32 dn[L_CODE], dn2[L_CODE], dn_sign[L_CODE];
+#endif
    Word32 codvec[4];
    Word32 i;
 
@@ -6232,8 +6269,15 @@ static void code_8i40_31bits( Float32 x[], Float32 cn[], Float32 h[],
                              Word32 T0, Float32 pitch_sharp, Float32 code[],
                              Float32 y[], Word16 anap[] )
 {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
    Float32 rr[L_CODE][L_CODE];
    Float32 dn[L_CODE], sign[L_CODE];
+#endif
    Word32 ipos[8], pos_max[NB_TRACK_MR102], codvec[8], linear_signs[
       NB_TRACK_MR102], linear_codewords[8];
    Word32 i;
@@ -6927,8 +6971,15 @@ static void code_10i40_35bits( Float32 x[], Float32 cn[], Float32 h[],
     Word32 T0, Float32 gain_pit, Float32 code[],
     Float32 y[], Word16 anap[] )
  {
+#if AMR_STACK_HACK
+   float (*rr)[L_CODE] = AmrStackContext.rr_hack;
+   Float32* dn = AmrStackContext.dn;
+   Float32* sign = AmrStackContext.dn_sign;
+   Float32* dn2 = AmrStackContext.dn2;
+#else
     Float32 rr[L_CODE][L_CODE];
     Float32 dn[L_CODE], sign[L_CODE];
+#endif
     Word32 ipos[10], pos_max[NB_TRACK], codvec[10];
     Word32 i;
 
@@ -6953,7 +7004,7 @@ static void code_10i40_35bits( Float32 x[], Float32 cn[], Float32 h[],
 
     /* Matrix of correlations */
     cor_h( h, sign, rr );
-    search_10i40( dn, rr, ipos, pos_max, codvec );
+    search_10i40( dn,  rr, ipos, pos_max, codvec );
     build_code_10i40_35bits( codvec, sign, code, h, y, anap );
 
     for ( i = 0; i < 10; i++ ) {

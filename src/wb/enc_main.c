@@ -3,6 +3,7 @@
  *  3GPP AMR Wideband Floating-point Speech Codec
  *===================================================================
  */
+#include "../amr_config.h"
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
@@ -239,6 +240,43 @@ static void E_MAIN_parm_store(Word32 value, Word16 **prms)
    return;
 }
 
+#if AMR_STACK_HACK
+// Define the structure to hold all stack variables
+struct {
+    /* Float32 */
+    Float32 speech16k[L_FRAME16k];                      /* Speech vector */
+    Float32 old_exc[(L_FRAME + 1) + PIT_MAX + L_INTERPOL]; /* Excitation vector */
+    Float32 exc2[L_FRAME];                              /* excitation vector */
+    Float32 error[M + L_SUBFR];                         /* error of quantization */
+    Float32 A[NB_SUBFR * (M + 1)];                      /* A(z) unquantized for the 4 subframes */
+    Float32 Aq[NB_SUBFR * (M + 1)];                     /* A(z) quantized for the 4 subframes */
+    Float32 xn[L_SUBFR];                                /* Target vector for pitch search */
+    Float32 xn2[L_SUBFR];                               /* Target vector for codebook search */
+    Float32 dn[L_SUBFR];                                /* Correlation between xn2 and h1 */
+    Float32 cn[L_SUBFR];                                /* Target vector in residual domain */
+    Float32 h1[L_SUBFR];                                /* Impulse response vector */
+    Float32 code[L_SUBFR];                              /* Fixed codebook excitation */
+    Float32 synth[L_SUBFR];                             /* 12.8kHz synthesis vector */
+    Float32 r[M + 1];                                   /* Autocorrelations of windowed speech */
+    Float32 Ap[M + 1];                                  /* A(z) with spectral expansion */
+    Float32 ispnew[M];                                  /* immittance spectral pairs at 4nd sfr */
+    Float32 isf[M];                                     /* ISF (frequency domain) at 4nd sfr */
+    Float32 g_coeff[5];                                 /* Correlations */
+    Float32 g_coeff2[2];                                /* Correlations */
+    
+    /* Word32 */
+    Word32 indice[8];                                   /* quantization indices */
+    
+    /* Word16 */
+    Word16 exc2_w16[L_FRAME];                           /* excitation vector */
+    Word16 s_Aq[NB_SUBFR * (M + 1)];                    /* A(z) quantized for the 4 subframes */
+    Word16 s_code[L_SUBFR];                             /* Fixed codebook excitation */
+    Word16 ispnew_q[M];                                 /* quantized ISPs at 4nd subframe */
+    Word16 isfq[M];                                     /* quantized ISPs */
+} AmrStackVars;
+
+#endif
+
 
 /*
  * E_MAIN_encode
@@ -259,7 +297,37 @@ static void E_MAIN_parm_store(Word32 value, Word16 **prms)
 Word16 E_MAIN_encode(Word16 * mode, Word16 speech16k[], Word16 prms[],
                     void *spe_state, Word16 allow_dtx)
 {
+#if AMR_STACK_HACK
+   /* Use structure members directly in the code */
+   Float32 *f_speech16k = AmrStackVars.speech16k;
+   Float32 *f_old_exc = AmrStackVars.old_exc;
+   Float32 *f_exc2 = AmrStackVars.exc2;
+   Float32 *error = AmrStackVars.error;
+   Float32 *A = AmrStackVars.A;
+   Float32 *Aq = AmrStackVars.Aq;
+   Float32 *xn = AmrStackVars.xn;
+   Float32 *xn2 = AmrStackVars.xn2;
+   Float32 *dn = AmrStackVars.dn;
+   Float32 *cn = AmrStackVars.cn;
+   Float32 *h1 = AmrStackVars.h1;
+   Float32 *f_code = AmrStackVars.code;
+   Float32 *synth = AmrStackVars.synth;
+   Float32 *r = AmrStackVars.r;
+   Float32 *Ap = AmrStackVars.Ap;
+   Float32 *ispnew = AmrStackVars.ispnew;
+   Float32 *isf = AmrStackVars.isf;
+   Float32 *g_coeff = AmrStackVars.g_coeff;
+   Float32 *g_coeff2 = AmrStackVars.g_coeff2;
+   
+   Word32 *indice = AmrStackVars.indice;
+   
+   Word16 *exc2 = AmrStackVars.exc2_w16;
+   Word16 *s_Aq = AmrStackVars.s_Aq;
+   Word16 *s_code = AmrStackVars.s_code;
+   Word16 *ispnew_q = AmrStackVars.ispnew_q;
+   Word16 *isfq = AmrStackVars.isfq;
 
+#else
    /* Float32 */
    Float32 f_speech16k[L_FRAME16k];    /* Speech vector                          */
    Float32 f_old_exc[(L_FRAME + 1) + PIT_MAX + L_INTERPOL]; /* Excitation vector */
@@ -273,14 +341,22 @@ Word16 E_MAIN_encode(Word16 * mode, Word16 speech16k[], Word16 prms[],
    Float32 cn[L_SUBFR];                /* Target vector in residual domain       */
    Float32 h1[L_SUBFR];                /* Impulse response vector                */
    Float32 f_code[L_SUBFR];            /* Fixed codebook excitation              */
-   Float32 y1[L_SUBFR];                /* Filtered adaptive excitation           */
-   Float32 y2[L_SUBFR];                /* Filtered adaptive excitation           */
    Float32 synth[L_SUBFR];             /* 12.8kHz synthesis vector               */
    Float32 r[M + 1];                   /* Autocorrelations of windowed speech    */
    Float32 Ap[M + 1];                  /* A(z) with spectral expansion           */
    Float32 ispnew[M];                  /* immittance spectral pairs at 4nd sfr   */
    Float32 isf[M];                     /* ISF (frequency domain) at 4nd sfr      */
    Float32 g_coeff[5], g_coeff2[2];    /* Correlations                           */
+   /* Word32 */
+   Word32 indice[8];                   /* quantization indices                   */
+
+   /* Word16 */
+   Word16 exc2[L_FRAME];               /* excitation vector                      */
+   Word16 s_Aq[NB_SUBFR * (M + 1)];    /* A(z) quantized for the 4 subframes     */
+   Word16 s_code[L_SUBFR];             /* Fixed codebook excitation              */
+   Word16 ispnew_q[M];                 /* quantized ISPs at 4nd subframe         */
+   Word16 isfq[M];                     /* quantized ISPs                         */
+#endif
    Float32 gain_pit;
    Float32 f_tmp, gain1, gain2;
    Float32 stab_fac = 0.0F, fac;
@@ -290,23 +366,16 @@ Word16 E_MAIN_encode(Word16 * mode, Word16 speech16k[], Word16 prms[],
    Float32 *p_A, *p_Aq;                /* ptr to A(z) for the 4 subframes        */
    Float32 *f_pt_tmp;
 
-   /* Word32 */
-   Word32 indice[8];                   /* quantization indices                   */
+   Float32 y1[L_SUBFR];                /* Filtered adaptive excitation           */
+   Float32 y2[L_SUBFR];                /* Filtered adaptive excitation           */
+   Word16 select, codec_mode;
+   Word16 index;
    Word32 vad_flag, clip_gain;
    Word32 T_op, T_op2, T0, T0_frac;
    Word32 T0_min, T0_max;
    Word32 voice_fac, Q_new = 0;
    Word32 L_gain_code, l_tmp;
    Word32 i, i_subfr, pit_flag;
-
-   /* Word16 */
-   Word16 exc2[L_FRAME];               /* excitation vector                      */
-   Word16 s_Aq[NB_SUBFR * (M + 1)];    /* A(z) quantized for the 4 subframes     */
-   Word16 s_code[L_SUBFR];             /* Fixed codebook excitation              */
-   Word16 ispnew_q[M];                 /* quantized ISPs at 4nd subframe         */
-   Word16 isfq[M];                     /* quantized ISPs                         */
-   Word16 select, codec_mode;
-   Word16 index;
    Word16 s_gain_pit, gain_code;
    Word16 s_tmp, s_max;
    Word16 corr_gain;

@@ -3,6 +3,7 @@
  *  3GPP AMR Wideband Floating-point Speech Codec
  *===================================================================
  */
+#include "../amr_config.h"
 #include <math.h>
 #include <memory.h>
 #include <float.h>
@@ -1091,6 +1092,22 @@ void E_ACELP_2t(Float32 dn[], Float32 cn[], Float32 H[],
    return;
 }
 
+#if AMR_STACK_HACK
+struct {
+   Float32 sign[L_SUBFR], vec[L_SUBFR];
+   Float32 cor_x[16], cor_y[16], h_buf[4 * L_SUBFR];
+   Float32 rrixix[4][16];
+   Float32 rrixiy[4][256];
+   Float32 dn2[L_SUBFR];
+   Word32 ind[NPMAXPT*4];
+   Word32 codvec[NB_PULSE_MAX];
+   Word32 nbpos[10];
+   Word32 pos_max[4];
+   Word32 dn2_pos[8 * 4];
+   UWord8 ipos[NB_PULSE_MAX];
+
+} E_ACELP_4t_stack;
+#endif
 /*
  * E_ACELP_4t
  *
@@ -1128,6 +1145,23 @@ void E_ACELP_2t(Float32 dn[], Float32 cn[], Float32 H[],
 void E_ACELP_4t(Float32 dn[], Float32 cn[], Float32 H[], Word16 code[],
                 Float32 y[], Word32 nbbits, Word16 mode, Word32 _index[])
 {
+#if AMR_STACK_HACK
+   Float32* sign = E_ACELP_4t_stack.sign;
+   Float32* vec = E_ACELP_4t_stack.vec;
+   Float32* cor_x = E_ACELP_4t_stack.cor_x;
+   Float32* cor_y = E_ACELP_4t_stack.cor_y;
+   Float32* h_buf = E_ACELP_4t_stack.h_buf;
+   Float32 (*rrixix)[16] = E_ACELP_4t_stack.rrixix;
+   Float32 (*rrixiy)[256] = E_ACELP_4t_stack.rrixiy;
+   Float32* dn2 = E_ACELP_4t_stack.dn2;
+   Word32* ind = E_ACELP_4t_stack.ind;
+   Word32* codvec = E_ACELP_4t_stack.codvec;
+   Word32* nbpos = E_ACELP_4t_stack.nbpos;
+   Word32* pos_max = E_ACELP_4t_stack.pos_max;
+   Word32* dn2_pos = E_ACELP_4t_stack.dn2_pos;
+   UWord8* ipos = E_ACELP_4t_stack.ipos;
+
+#else
    Float32 sign[L_SUBFR], vec[L_SUBFR];
    Float32 cor_x[16], cor_y[16], h_buf[4 * L_SUBFR];
    Float32 rrixix[4][16];
@@ -1139,6 +1173,7 @@ void E_ACELP_4t(Float32 dn[], Float32 cn[], Float32 H[], Word16 code[],
    Word32 pos_max[4];
    Word32 dn2_pos[8 * 4];
    UWord8 ipos[NB_PULSE_MAX];
+#endif
    Word32 i, j, k, st, pos = 0, index, track, nb_pulse = 0, nbiter = 4;
    Word32 L_index;
    Float32 psk, ps, alpk, alp = 0.0F;
