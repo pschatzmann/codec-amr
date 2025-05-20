@@ -53,6 +53,7 @@ I am providing a simple C++ API:
 - [AMRNB](https://pschatzmann.github.io/codec-amr/html/classAMRNB.html)
 - [ARMWB](https://pschatzmann.github.io/codec-amr/html/classAMRWB.html)
 
+However, I recommend to use the [high level Codec API](https://github.com/pschatzmann/arduino-audio-tools/wiki/Encoding-and-Decoding-of-Audio) from the Arduino Audio Tools project.
 
 ### Installation Arduino
 
