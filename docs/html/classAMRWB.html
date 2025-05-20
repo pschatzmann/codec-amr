@@ -96,17 +96,17 @@ Collaboration diagram for AMRWB:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a2b7be8f703aac29d14933b4fdf703881"><td class="memItemLeft" align="right" valign="top"><a id="a2b7be8f703aac29d14933b4fdf703881"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRWB.html#a2b7be8f703aac29d14933b4fdf703881">Mode</a> { <br />
-&#160;&#160;<b>MODE_6_60</b> = 0
-, <b>MODE_8_85</b>
-, <b>MODE_12_65</b>
-, <b>MODE_14_25</b>
+&#160;&#160;<b>WB_6_60</b> = 0
+, <b>WB_8_85</b>
+, <b>WB_12_65</b>
+, <b>WB_14_25</b>
 , <br />
-&#160;&#160;<b>MODE_15_85</b>
-, <b>MODE_18_25</b>
-, <b>MODE_19_85</b>
-, <b>MODE_23_05</b>
+&#160;&#160;<b>WB_15_85</b>
+, <b>WB_18_25</b>
+, <b>WB_19_85</b>
+, <b>WB_23_05</b>
 , <br />
-&#160;&#160;<b>MODE_23_85</b>
+&#160;&#160;<b>WB_23_85</b>
 <br />
  }</td></tr>
 <tr class="memdesc:a2b7be8f703aac29d14933b4fdf703881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available encoding modes for AMR-WB. <br /></td></tr>
@@ -114,9 +114,6 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa5180caf58e54652ccfa7d1045f07d79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRWB.html#aa5180caf58e54652ccfa7d1045f07d79">AMRWB</a> (bool enableDTX=false)</td></tr>
-<tr class="memdesc:aa5180caf58e54652ccfa7d1045f07d79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classAMRWB.html" title="AMR Wideband codec implementation.">AMRWB</a> codec.  <a href="classAMRWB.html#aa5180caf58e54652ccfa7d1045f07d79">More...</a><br /></td></tr>
-<tr class="separator:aa5180caf58e54652ccfa7d1045f07d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94c58ca34121496c16ddc277f868c64e"><td class="memItemLeft" align="right" valign="top"><a id="a94c58ca34121496c16ddc277f868c64e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAMRWB.html#a94c58ca34121496c16ddc277f868c64e">~AMRWB</a> () override</td></tr>
 <tr class="memdesc:a94c58ca34121496c16ddc277f868c64e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
@@ -152,42 +149,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isInitialized</b> = f
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>AMR Wideband codec implementation. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa5180caf58e54652ccfa7d1045f07d79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5180caf58e54652ccfa7d1045f07d79">&#9670;&nbsp;</a></span>AMRWB()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">AMRWB::AMRWB </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enableDTX</em> = <code>false</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="classAMRWB.html" title="AMR Wideband codec implementation.">AMRWB</a> codec. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">enableDTX</td><td>Enable discontinuous transmission (DTX) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a12039ba761dc157b6ba92589f074f952"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a12039ba761dc157b6ba92589f074f952">&#9670;&nbsp;</a></span>decode()</h2>
 
