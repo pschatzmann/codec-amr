@@ -131,39 +131,9 @@ class AMRWB : public AMRCodec {
       uint8_t frameType = (amrData[offset] >> 3) & 0x0F;
 
       // Find frame size based on frame type
-      size_t frameSize = 0;
-      // Approximate mapping based on AMR-WB frame sizes
-      switch (frameType) {
-        case 0:
-          frameSize = 18;
-          break;  // 6.60 kbit/s
-        case 1:
-          frameSize = 24;
-          break;  // 8.85 kbit/s
-        case 2:
-          frameSize = 33;
-          break;  // 12.65 kbit/s
-        case 3:
-          frameSize = 37;
-          break;  // 14.25 kbit/s
-        case 4:
-          frameSize = 41;
-          break;  // 15.85 kbit/s
-        case 5:
-          frameSize = 47;
-          break;  // 18.25 kbit/s
-        case 6:
-          frameSize = 51;
-          break;  // 19.85 kbit/s
-        case 7:
-          frameSize = 59;
-          break;  // 23.05 kbit/s
-        case 8:
-          frameSize = 61;
-          break;  // 23.85 kbit/s
-        default:
-          frameSize = 1;
-          break;  // SID, etc.
+      size_t frameSize = 1;
+      if (frameSize <= 8) {
+        frameSize = getEncodedFrameSizeBytes(frameType);
       }
 
       if (offset + frameSize > amrSize) {
@@ -200,6 +170,15 @@ class AMRWB : public AMRCodec {
    * @return Bytes per frame
    */
   int getEncodedFrameSizeBytes() override {
+    return getEncodedFrameSizeBytes(static_cast<int>(currentMode));
+  }
+
+ private:
+  void* encoderState = nullptr;
+  void* decoderState = nullptr;
+  Mode currentMode = Mode::MODE_23_85;
+
+  int getEncodedFrameSizeBytes(int mode) {
     // Bytes per encoded frame for each mode
     const uint8_t frameSizes[] = {
         18,  // MODE_6_60 (6.60 kbps)
@@ -212,11 +191,6 @@ class AMRWB : public AMRCodec {
         59,  // MODE_23_05 (23.05 kbps)
         61   // MODE_23_85 (23.85 kbps)
     };
-    return frameSizes[static_cast<int>(currentMode)];
+    return frameSizes[mode];
   }
-
- private:
-  void* encoderState = nullptr;
-  void* decoderState = nullptr;
-  Mode currentMode = Mode::MODE_23_85;
 };

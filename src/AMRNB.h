@@ -138,36 +138,10 @@ class AMRNB : public AMRCodec {
       uint8_t frameType = (amrData[offset] >> 3) & 0x0F;
 
       // Find frame size - this is just an approximation
-      size_t frameSize = 0;
-      // Simple mapping based on block_size table in interf_rom.h
-      switch (frameType) {
-        case 0:
-          frameSize = 13;
-          break;  // MR475
-        case 1:
-          frameSize = 14;
-          break;  // MR515
-        case 2:
-          frameSize = 16;
-          break;  // MR59
-        case 3:
-          frameSize = 18;
-          break;  // MR67
-        case 4:
-          frameSize = 20;
-          break;  // MR74
-        case 5:
-          frameSize = 21;
-          break;  // MR795
-        case 6:
-          frameSize = 27;
-          break;  // MR102
-        case 7:
-          frameSize = 32;
-          break;  // MR122
-        default:
-          frameSize = 1;
-          break;  // Other cases like SID, etc.
+      size_t frameSize = 1;
+      if (frameType <= 7) {
+        frameSize = getEncodedFrameSizeBytes(frameType);
+
       }
 
       if (offset + frameSize > amrSize) {
@@ -203,19 +177,9 @@ class AMRNB : public AMRCodec {
    * @brief Get the size in bytes for one encoded frame in current mode
    * @return Bytes per frame
    */
-   int getEncodedFrameSizeBytes() override {
-    // Bytes per encoded frame for each mode
-    const uint8_t frameSizes[] = {
-        13,  // MR475 (4.75 kbps)
-        14,  // MR515 (5.15 kbps)
-        16,  // MR59 (5.9 kbps)
-        18,  // MR67 (6.7 kbps)
-        20,  // MR74 (7.4 kbps)
-        21,  // MR795 (7.95 kbps)
-        27,  // MR102 (10.2 kbps)
-        32   // MR122 (12.2 kbps)
-    };
-    return frameSizes[static_cast<int>(currentMode)];
+
+  int getEncodedFrameSizeBytes() override {
+    return getEncodedFrameSizeBytes(static_cast<int>(currentMode));
   }
 
  private:
@@ -227,5 +191,20 @@ class AMRNB : public AMRCodec {
   // Map C++ enum to C API enum
   inline enum ModeNB mapMode(AMRNB::Mode mode) {
     return static_cast<ModeNB>(mode);
+  }
+
+  inline int getEncodedFrameSizeBytes(int mode) {
+    // Bytes per encoded frame for each mode
+    const uint8_t frameSizes[] = {
+        13,  // MR475 (4.75 kbps)
+        14,  // MR515 (5.15 kbps)
+        16,  // MR59 (5.9 kbps)
+        18,  // MR67 (6.7 kbps)
+        20,  // MR74 (7.4 kbps)
+        21,  // MR795 (7.95 kbps)
+        27,  // MR102 (10.2 kbps)
+        32   // MR122 (12.2 kbps)
+    };
+    return frameSizes[static_cast<int>(mode)];
   }
 };
