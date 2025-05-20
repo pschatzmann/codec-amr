@@ -120,7 +120,7 @@ class AMRWB : public AMRCodec {
     }
 
     // AMR-WB produces 320 samples per frame (20ms at 16kHz)
-    const size_t samplesPerFrame = 320;
+    const size_t samplesPerFrame = getFrameSizeSamples();
     size_t totalSamplesDecoded = 0;
     size_t offset = 0;
 
