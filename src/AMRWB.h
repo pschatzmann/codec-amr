@@ -17,15 +17,15 @@ class AMRWB : public AMRCodec {
    * @brief Available encoding modes for AMR-WB
    */
   enum class Mode {
-    MODE_6_60 = 0,  // 6.60 kbit/s
-    MODE_8_85,      // 8.85 kbit/s
-    MODE_12_65,     // 12.65 kbit/s
-    MODE_14_25,     // 14.25 kbit/s
-    MODE_15_85,     // 15.85 kbit/s
-    MODE_18_25,     // 18.25 kbit/s
-    MODE_19_85,     // 19.85 kbit/s
-    MODE_23_05,     // 23.05 kbit/s
-    MODE_23_85      // 23.85 kbit/s
+    WB_6_60 = 0,  // 6.60 kbit/s
+    WB_8_85,      // 8.85 kbit/s
+    WB_12_65,     // 12.65 kbit/s
+    WB_14_25,     // 14.25 kbit/s
+    WB_15_85,     // 15.85 kbit/s
+    WB_18_25,     // 18.25 kbit/s
+    WB_19_85,     // 19.85 kbit/s
+    WB_23_05,     // 23.05 kbit/s
+    WB_23_85      // 23.85 kbit/s
   };
 
   AMRWB() = default;
@@ -176,20 +176,20 @@ class AMRWB : public AMRCodec {
  private:
   void* encoderState = nullptr;
   void* decoderState = nullptr;
-  Mode currentMode = Mode::MODE_23_85;
+  Mode currentMode = Mode::WB_23_85;
 
   int getEncodedFrameSizeBytes(int mode) {
     // Bytes per encoded frame for each mode
     const uint8_t frameSizes[] = {
-        18,  // MODE_6_60 (6.60 kbps)
-        24,  // MODE_8_85 (8.85 kbps)
-        33,  // MODE_12_65 (12.65 kbps)
-        37,  // MODE_14_25 (14.25 kbps)
-        41,  // MODE_15_85 (15.85 kbps)
-        47,  // MODE_18_25 (18.25 kbps)
-        51,  // MODE_19_85 (19.85 kbps)
-        59,  // MODE_23_05 (23.05 kbps)
-        61   // MODE_23_85 (23.85 kbps)
+        18,  // WB_6_60 (6.60 kbps)
+        24,  // WB_8_85 (8.85 kbps)
+        33,  // WB_12_65 (12.65 kbps)
+        37,  // WB_14_25 (14.25 kbps)
+        41,  // WB_15_85 (15.85 kbps)
+        47,  // WB_18_25 (18.25 kbps)
+        51,  // WB_19_85 (19.85 kbps)
+        59,  // WB_23_05 (23.05 kbps)
+        61   // WB_23_85 (23.85 kbps)
     };
     return frameSizes[mode];
   }

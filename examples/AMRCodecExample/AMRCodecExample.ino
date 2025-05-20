@@ -66,11 +66,11 @@ void setup() {
 
   if (USE_WIDEBAND) {
     AMRWB* wb = new AMRWB();
-    wb->setMode(AMRWB::Mode::MODE_23_85);  // Highest quality
+    wb->setMode(AMRWB::Mode::WB_23_85);  // Highest quality
     codec = wb;
   } else {
     AMRNB* nb = new AMRNB();
-    nb->setMode(AMRNB::Mode::MR122);  // Highest quality
+    nb->setMode(AMRNB::Mode::NB_122);  // Highest quality
     codec = nb;
   }
 

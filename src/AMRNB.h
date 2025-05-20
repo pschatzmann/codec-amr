@@ -17,14 +17,14 @@ class AMRNB : public AMRCodec {
    * @brief Available encoding modes for AMR-NB
    */
   enum class Mode {
-    MR475 = 0,  // 4.75 kbit/s
-    MR515,      // 5.15 kbit/s
-    MR59,       // 5.9 kbit/s
-    MR67,       // 6.7 kbit/s
-    MR74,       // 7.4 kbit/s
-    MR795,      // 7.95 kbit/s
-    MR102,      // 10.2 kbit/s
-    MR122       // 12.2 kbit/s
+    NB_475 = 0,  // 4.75 kbit/s
+    NB_515,      // 5.15 kbit/s
+    NB_59,       // 5.9 kbit/s
+    NB_67,       // 6.7 kbit/s
+    NB_74,       // 7.4 kbit/s
+    NB_795,      // 7.95 kbit/s
+    NB_102,      // 10.2 kbit/s
+    NB_122       // 12.2 kbit/s
   };
 
   /**
@@ -185,7 +185,7 @@ class AMRNB : public AMRCodec {
  private:
   void* encoderState = nullptr;
   void* decoderState = nullptr;
-  Mode currentMode = Mode::MR122;
+  Mode currentMode = Mode::NB_122;
   bool dtx_enabled = false;
 
   // Map C++ enum to C API enum
