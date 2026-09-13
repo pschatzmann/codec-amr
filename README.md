@@ -1,5 +1,8 @@
 # 3GPP AMR Audio Codec
 
+[![Arduino Library](https://img.shields.io/badge/Arduino-Library-blue.svg)](https://www.arduino.cc/reference/en/libraries/)
+[![IDF Component](https://img.shields.io/badge/IDF-Component-blue.svg)](https://github.com/pschatzmann/codec-amr)
+
 The 3GPP AMR codec is a narrowband, low-bitrate speech codec specifically designed for low-latency voice communications such as Push-to-Talk (PoC) and Mission-Critical Push-to-Talk (MCPTT). It's not widely used in consumer apps, but important in specialized telecom and emergency communication systems.
 
 The main differences between AMR-NB (Adaptive Multi-Rate Narrowband) and AMR-WB (Adaptive Multi-Rate Wideband) lie in audio bandwidth, quality, sampling rate, and use cases. Here's a breakdown:
